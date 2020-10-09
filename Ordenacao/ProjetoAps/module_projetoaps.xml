@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_projetoaps" default="compile.module.projetoaps">
+  <dirname property="module.projetoaps.basedir" file="/Ordenacao/ProjetoAps/module_projetoaps.xml"/>
+  
+  <property name="module.jdk.home.projetoaps" value="${jdk.home.1.8.0_181}"/>
+  <property name="module.jdk.bin.projetoaps" value="${jdk.bin.1.8.0_181}"/>
+  <property name="module.jdk.classpath.projetoaps" value="jdk.classpath.1.8.0_181"/>
+  
+  <property name="compiler.args.projetoaps" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="projetoaps.output.dir" value="/Ordenacao/ProjetoAps/bin"/>
+  <property name="projetoaps.testoutput.dir" value="/Ordenacao/ProjetoAps/bin"/>
+  
+  <path id="projetoaps.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="projetoaps.module.production.classpath">
+    <path refid="${module.jdk.classpath.projetoaps}"/>
+  </path>
+  
+  <path id="projetoaps.runtime.production.module.classpath">
+    <pathelement location="bin"/>
+  </path>
+  
+  <path id="projetoaps.module.classpath">
+    <path refid="${module.jdk.classpath.projetoaps}"/>
+    <pathelement location="bin"/>
+  </path>
+  
+  <path id="projetoaps.runtime.module.classpath">
+    <pathelement location="bin"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.projetoaps">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.projetoaps">
+    <patternset refid="excluded.from.module.projetoaps"/>
+  </patternset>
+  
+  <path id="projetoaps.module.sourcepath">
+    <dirset dir="/Ordenacao/ProjetoAps">
+      <include name="src"/>
+      <include name="img"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.projetoaps" depends="compile.module.projetoaps.production,compile.module.projetoaps.tests" description="Compile module ProjetoAps"/>
+  
+  <target name="compile.module.projetoaps.production" depends="register.custom.compilers" description="Compile module ProjetoAps; production classes">
+    <mkdir dir="bin"/>
+    <javac2 destdir="${projetoaps.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.projetoaps}/javac">
+      <compilerarg line="${compiler.args.projetoaps}"/>
+      <bootclasspath refid="projetoaps.module.bootclasspath"/>
+      <classpath refid="projetoaps.module.production.classpath"/>
+      <src refid="projetoaps.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.projetoaps"/>
+    </javac2>
+    
+    <copy todir="bin">
+      <fileset dir="/Ordenacao/ProjetoAps/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="/Ordenacao/ProjetoAps/img">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.projetoaps.tests" depends="register.custom.compilers,compile.module.projetoaps.production" description="compile module ProjetoAps; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.projetoaps" description="cleanup module">
+    <delete dir="bin"/>
+    <delete dir="bin"/>
+  </target>
+</project>

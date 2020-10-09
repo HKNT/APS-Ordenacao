@@ -1,0 +1,4 @@
+Mamifero;Onça-pintada;Panthera onca;2000;Brasil;
+Mamifero;Lobo;Chrysocyon brachyurus;1520;Brasil;
+Peixes;Baleia-fin;Balaenoptera physalus;1800;Hemisferio Sul;
+Aves;Condor-californiano;Gymnogyps californianus;2010;Estados Unidos da America;
